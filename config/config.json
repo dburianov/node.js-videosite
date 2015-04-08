@@ -1,0 +1,28 @@
+{
+  "port": 80,
+  "mongoose": {
+    "uri": "mongodb://localhost/chat",
+    "options": {
+      "server": {
+        "socketOptions": {
+          "keepAlive": 1
+        }
+      }
+    }
+  },
+  "session": {
+    "secret": "1N3W4UZfcq1Tm",
+    "key": "SID",
+    "cookie": {
+      "path": "/",
+      "httpOnly": true,
+      "expire": 86400
+    }
+  },
+  "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "db": 2
+  }
+}
+

@@ -1,0 +1,31 @@
+<% layout('layout/page') -%>
+<% block('title', 'Привет ≥︺‿︺≤'); -%>
+
+<!--<p class="lead">Всем привет!</p>
+-->
+    <main>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="jumbotron">
+                    <% include ./partials/ads %>
+                    <h3>parameters for the connection to the streaming server </h3>
+                    <p>
+                        <font size="3">
+                        <% drinks.forEach(function(drink) { %>
+                        Connection string: <%= drink.server %>/<%= drink.strapp %>/<%= drink.name %>
+                        <% }); %>
+                        </font>
+                    </p>
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+
+                <div class="well">
+                     <% include ./partials/ads %>
+                </div>
+
+            </div>
+        </div>
+    </main>
+

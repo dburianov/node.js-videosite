@@ -1,0 +1,25 @@
+{
+  "name": "node-ejs",
+  "main": "server.js",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "ejs-locals": "*",
+    "express": "^4.6.1",
+    "express-sessions": "*",
+    "nconf": "*",
+    "redis": "*",
+    "redis-sessions": "*",
+    "connect-redis": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express-winston": "*",
+    "winston": "*"
+  }
+}
+
