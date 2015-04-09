@@ -1,0 +1,19 @@
+  <video id="video"
+         class="video-js vjs-default-skin"
+         height="300"
+         width="600"
+         controls>
+    <source
+       src="http://nodejs-db.cloudapp.net/media/sample.mp4_320p.mp4"
+       type="video/mp4">
+  </video>
+  <script>
+    videojs.options.flash.swf = 'vendor/videojs/node_modules/video.js/dist/video-js/video-js.swf';
+    // initialize the player
+    var player = videojs('video');
+  </script>
+
+<video width="320" height="240" controls>
+  <source src="http://nodejs-db.cloudapp.net/media/sample.mp4_320p.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
