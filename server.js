@@ -5,8 +5,22 @@ var app = express();
 var http = require('http');
 var path = require('path');
 var config = require('./config');
-var expressWinston = require('express-winston');
-var winston = require('winston'); // for transports.Console
+//var expressWinston = require('express-winston');
+//var winston = require('winston'); // for transports.Console
+
+//var mongoose = require('mongoose');
+//var passport = require('passport');
+//var flash    = require('connect-flash');
+
+//var morgan       = require('morgan');
+//var cookieParser = require('cookie-parser');
+//var bodyParser   = require('body-parser');
+//var session      = require('express-session');
+
+// set up our express application
+//app.use(morgan('dev')); // log every request to the console
+//app.use(cookieParser()); // read cookies (needed for auth)
+//app.use(bodyParser()); // get information from html forms
 
 // set the view engine to ejs
 app.engine('ejs', require('ejs-locals')); // layout partial block
@@ -14,21 +28,6 @@ app.set('views', __dirname + '/template');
 app.set('view engine', 'ejs');
 
 //app.use(express.favicon()); // /favicon.ico
-
-// express-winston logger makes sense BEFORE the router.
-//    app.use(expressWinston.logger({
-//      transports: [
-//        new winston.transports.Console({
-//          json: true,
-//          colorize: true
-//        })
-//      ]
-//    }));
-
-
-//app.use(express.bodyParser());  // req.body....
-
-app.use(require('./middleware/sendHttpError'));
 
 var redis = require("redis").createClient();
     redis.select(2);
@@ -38,28 +37,37 @@ var redis = require("redis").createClient();
         console.log("Error " + err);
     });
 
-//app.use(express.cookieParser()); // req.cookies
-// app.use(express.session({
-//  secret: config.get('session:secret'),
-//  key: config.get('session:key'),
-//  cookie: config.get('session:cookie'),
-//  store: new (require('express-sessions'))({
-//    db:config.get('redis:db'),
-//    storage: 'redis',
-//    collection: 'sessions'
-//    })
-//})); 
+//mysql
+var mysql      = require('mysql');
+var mysqlconnection = mysql.createConnection({
+  host     : config.get('mysql:host'),
+  user     : config.get('mysql:user'),
+  password : config.get('mysql:password'),
+  database : config.get('mysql:database')
+});
+//console.log("E: " + config.get('mysql:database'));
+mysqlconnection.connect(function(err){
+if(!err) {
+    console.log("Database is connected ... ");  
+} else {
+    console.log("Error connecting database ... \n\n");  
+}
+});
 
-// use res.render to load up an ejs view file
+// required for passport
+//app.use(session({ secret: config.get('session:secret') })); // session secret
+//app.use(passport.initialize());
+//app.use(passport.session()); // persistent login sessions
+//app.use(flash()); // use connect-flash for flash messages stored in session
 
-// index page 
-//app.get('/', function(req, res) {
-//    res.render('pages/index');
-//});
+
+// routes ======================================================================
+//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+
 
 // index page 
 app.get('/', function(req, res) {
-
 
 //    res.render('pages/index');
     res.render('index');
@@ -102,5 +110,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 var server = http.createServer(app);
 server.listen(config.get('port'), function(){
 //  log.info('Express server listening on port ' + config.get('port'));
+console.log('Express server listening on port ' + config.get('port'));
 });
 
