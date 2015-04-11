@@ -1,8 +1,18 @@
 <% layout('layout/page') -%>
 <% block('title', 'Striaming ≥︺‿︺≤'); -%>
 
-    <div >
-    <% include partials/videojs %>
+<main>
+    <div class="col-sm-8">
+	<div class="jumbotron">
+            <% include ./partials/ads %>
+	    <% include partials/videojs %>
+	    <% include partials/scroll %>
+	</div>
     </div>
 
-
+    <div class="col-sm-4">
+        <div class="well">
+             <% include ./partials/ads %>
+        </div>
+    </div>
+</main>

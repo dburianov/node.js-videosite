@@ -5,22 +5,29 @@ var app = express();
 var http = require('http');
 var path = require('path');
 var config = require('./config');
-//var expressWinston = require('express-winston');
-//var winston = require('winston'); // for transports.Console
 
-//var mongoose = require('mongoose');
-//var passport = require('passport');
-//var flash    = require('connect-flash');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash    = require('connect-flash');
 
-//var morgan       = require('morgan');
-//var cookieParser = require('cookie-parser');
-//var bodyParser   = require('body-parser');
-//var session      = require('express-session');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+
+
+// mongodb
+var configDB = require('./config/database.js');
+
+// configuration ===============================================================
+mongoose.connect(configDB.url); // connect to our database
+
+require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
-//app.use(morgan('dev')); // log every request to the console
-//app.use(cookieParser()); // read cookies (needed for auth)
-//app.use(bodyParser()); // get information from html forms
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
 
 // set the view engine to ejs
 app.engine('ejs', require('ejs-locals')); // layout partial block
@@ -31,12 +38,10 @@ app.set('view engine', 'ejs');
 
 var redis = require("redis").createClient();
     redis.select(2);
-//var RedisStore = require("connect-redis")(express);
-
     redis.on("error", function (err) {
         console.log("Error " + err);
     });
-
+/*
 //mysql
 var mysql      = require('mysql');
 var mysqlconnection = mysql.createConnection({
@@ -53,19 +58,20 @@ if(!err) {
     console.log("Error connecting database ... \n\n");  
 }
 });
+*/
 
 // required for passport
-//app.use(session({ secret: config.get('session:secret') })); // session secret
-//app.use(passport.initialize());
-//app.use(passport.session()); // persistent login sessions
-//app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(session({ secret: config.get('session:secret') })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // routes ======================================================================
-//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 
-
+/*
 // index page 
 app.get('/', function(req, res) {
 
@@ -104,8 +110,9 @@ app.get('/streaming', function(req, res) {
         tagline: tagline
     });
 });
+*/
+//app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static(path.join(__dirname, 'public')));
 
 var server = http.createServer(app);
 server.listen(config.get('port'), function(){

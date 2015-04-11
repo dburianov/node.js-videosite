@@ -11,7 +11,7 @@
     "ejs": "^1.0.0",
     "ejs-locals": "*",
     "express": "^4.6.1",
-    "express-sessions": "*",
+    "express-session": "~1.0.0",
     "nconf": "*",
     "redis": "*",
     "redis-sessions": "*",
@@ -32,7 +32,7 @@
     "bcrypt-nodejs" : "latest",
 
     "morgan": "~1.0.0",
-    "method-override": "~1.0.0",
+    "method-override": "~1.0.0"
   }
 }
 
