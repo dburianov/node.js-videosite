@@ -15,6 +15,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+var videoid_internal = '';
+var videoid_i = '';
 
 // mongodb
 var configDB = require('./config/database.js');
@@ -65,7 +67,6 @@ app.use(session({ secret: config.get('session:secret') })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
 
 // routes ======================================================================
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport

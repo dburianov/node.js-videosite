@@ -6,11 +6,21 @@
 	<div class="jumbotron">
             <% include ./partials/ads %>
 
+	    <%= JSON.stringify(videoid_int) %>
+	    <%= JSON.stringify(ids) %>
+
+	    <% if (global.videoid_internal) { %>
 	        <script>
-	            var videoid_i = '<%- videoid_s %>';
+	            var videoid_i = "<%= global.videoid_internal %>";
 		</script>
+	      <% } else { %> 
+	        <script>
+	            var videoid_i = 'sample.mp4';
+		</script>
+	    <% } %>
 
 	    <% include partials/videojs %>
+	    <% include partials/scroll %>
 	</div>
     </div>
 

@@ -7,14 +7,28 @@ var redis = require("redis").createClient();
     });
 
 
+
 module.exports = function(app, passport) {
+
 
     // index page
     app.get('/', function(req, res) {
 
+
         // res.render('pages/index');
+	if (req.param("videoId")) { global.videoid_internal=req.param("videoId"); } else { global.videoid_internal = 'sample.mp4'; }
+//	console.log("param: " + req.param("videoId") + " variable set: " + global.videoid_internal );
+//	res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+	res.cookie('foo', +new Date(), { maxAge: 3600000, path: '/' });
+//	console.log("coocies on client: " + req.cookies.foo);
+	res.locals.videoid_s = global.videoid_internal;
+//        res.render('index', {ids: '1', videoid_int: global.videoid_internal, ss: JSON.stringify(s) } );
         res.render('index');
     });
+
+
+    
+
 
     // about page
     app.get('/about', function(req, res) {
@@ -96,8 +110,10 @@ module.exports = function(app, passport) {
     // LOGOUT ==============================
     // =====================================
     app.get('/logout', function(req, res) {
+	res.clearCookie('foo');
         req.logout();
-        res.redirect('/');
+//        res.redirect('/');
+        res.redirect('/streaming');
     });
 //    app.use(express.static(path.join(__dirname, 'public')));
 }
