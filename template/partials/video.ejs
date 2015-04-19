@@ -2,36 +2,28 @@
     var videosrc = "http://nodejs-db.cloudapp.net/media/sample.mp4_720pm.mp4";
 </script>
 
-
+<div id="log"></div>
+<div id='videotimecounter'></div>
+<div id='div-video-res'></div>
+<div id='div-video-file'></div>
 
 <video id="video"
-        class="video-js vjs-default-skin"
         height="60%"
         width="100%"
         controls 
 	autoplay>
-</video>
     <source
 	id="video_source_src"
        src= "http://nodejs-db.cloudapp.net/media/sample.mp4_320pm.mp4"
        type="video/mp4">
-
-<script>
-    videojs.options.flash.swf = 'vendor/videojs/node_modules/video.js/dist/video-js/video-js.swf';
-    // initialize the player
-    var player = videojs('video');
-</script>
-
-<div id='videotimecounter'>    </div>
-<div id='div-video-res'>    </div>
-<div id='div-video-file'>    </div>
+</video>
 
 <script>
 
-//    console.log("vid" + videoid_i); //nternal);
     src_id_video = 'http://nodejs-db.cloudapp.net/media/' + videoid_i + '_';
 
-    var $video_obj = _V_("video");
+    var $video_obj = document.getElementById("video");
+    var video_obj = document.getElementById("video");
     var video_res = "";
     var whereYouAt = 0;
     var whereYouAtCounter = 0;
@@ -42,15 +34,7 @@
 	h_innerWidth = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	var w_id_video = document.getElementById("video").offsetWidth;
 	var h_id_video = document.getElementById("video").offsetHeight;
-        whereYouAt = player.currentTime();
-
-//        console.log("cutternt timeh: " + whereYouAt);
-//        $('#videotimecounter').html("cutternt timer: " + Math.round(whereYouAt) + "<br>" + "h: " + h_innerWidth + " w: " + w_innerWidth + 
-//	    "<br> div w: " + w_id_video + "<br> div h: " + h_id_video
-//	);
-//        console.log("cutternt timer: " + Math.round(whereYouAt) + "<br>" + "h: " + h_innerWidth + " w: " + w_innerWidth + 
-//	    "<br> div w: " + w_id_video + "<br> div h: " + h_id_video
-//	);
+        whereYouAt = video_obj.currentTime;
 
 	$(video).height(Math.round(w_id_video)/16*9);
 
@@ -72,17 +56,13 @@
     
     //fonction switch source by resolution
     function SwitchSource() {
-        $video_obj.ready(function() {
-	//	$video_obj.pause();
-	//	player.src
 	    whereYouAtCounter = whereYouAtCounter + whereYouAt;
-	    $video_obj.src({"type":"video/mp4", "src":src_id_video + video_res + ".mp4?start=" + whereYouAtCounter});
+	    var video_obj_src = src_id_video + video_res + ".mp4?start=" + whereYouAtCounter;
+	    $("#video").attr("src", video_obj_src);
 	    if ( whereYouAtCounter != 0 ) { $video_obj.play(); }
-	//	$video_obj.load();
 	//    $('#div-video-file').html("resolution: " + src_id_video +  video_res  + ".mp4?start=" + whereYouAtCounter);
 //	    console.log("resolution: " + src_id_video +  video_res  + ".mp4?start=" + whereYouAtCounter);
-	});
     }
 </script>
 
-
+<script src="/js/videorate.js"></script>
