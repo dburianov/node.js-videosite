@@ -61,8 +61,9 @@ io.sockets.on('connection', function (socket) {
 					var out = fs.createWriteStream("Video/" + Name);
 					util.pump(inp, out, function(){
 						fs.unlink("Temp/" + Name, function () { //This Deletes The Temporary File
-							exec("ffmpeg -i Video/" + Name  + " -ss 01:30 -r 1 -an -vframes 1 -f mjpeg Video/" + Name  + ".jpg", function(err){
-								socket.emit('Done', {'Image' : 'Video/' + Name + '.jpg'});
+//							exec("ffmpeg -i Video/" + Name  + " -ss 01:30 -r 1 -an -vframes 1 -f mjpeg Video/" + Name  + ".jpg", function(err){
+							exec("ffmpeg -i Video/" + Name  + " -f image2 -vframes 1 -s 160x90 -compression_level 50 Video/" + Name  + ".png", function(err){
+								socket.emit('Done', {'Image' : 'Video/' + Name + '.png'});
 							});
 						});
 					});
