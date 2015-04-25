@@ -1,5 +1,5 @@
 <script>
-    var videosrc = "http://nodejs-db.cloudapp.net/media/sample.mp4_720pm.mp4";
+//    var videosrc = "http://nodejs-db.cloudapp.net/media/sample.mp4_720pm.mp4";
 </script>
 
 <div id="log"></div>
@@ -11,16 +11,17 @@
         height="60%"
         width="100%"
 	autobuffer
-        controls 
 	autoplay>
+    <p>Requires HTML5 mp4 h264/acc capable browser.</p>
+    <p>Requires HTML5 Ogg Theora/Vorbis capable browser.</p>
+</video>
     <source
 	id="video_source_src"
        src= "http://nodejs-db.cloudapp.net/media/sample.mp4_320pm.mp4"
        type="video/mp4">
-    <p>Requires HTML5 mp4 h264/acc capable browser.</p>
-    <p>Requires HTML5 Ogg Theora/Vorbis capable browser.</p>
-</video>
-
+<div id='div-video-control'>
+    <button id="play" onclick="vidplay()">&gt;</button>
+</div>
 <script>
 
     src_id_video = 'http://nodejs-db.cloudapp.net/media/' + videoid_i + '_';
@@ -77,9 +78,17 @@
 
     }, 1000);
 
-/*
+function vidplay() {
+   var button = document.getElementById("play");
+   if (video_obj.paused) {
+      video_obj.play();
+      button.textContent = "||";
+   } else {
+      video_obj.pause();
+      button.textContent = ">";
+   }
+}
 
-*/
 </script>
 
 
