@@ -19,6 +19,20 @@
                 </div>
 
             </div>
+            <div class="col-sm-8">
+                <div class="jumbotron">
+                        <% drinks.forEach(function(drink) { %>
+                        Connection string: <%= drink.server %>/<%= drink.strapp %>/<%= drink.name %>
+                        <% }); %>
+
+                <script>
+                    var videoid_i = '<%= drinks[0].name %>;'
+                </script>
+
+
+                    <% include ./partials/streamingplay %>
+                </div>
+            </div>
             <div class="col-sm-4">
 
                 <div class="well">

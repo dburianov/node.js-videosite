@@ -11,6 +11,7 @@
         height="60%"
         width="100%"
 	autobuffer
+	controls
 	autoplay>
     <p>Requires HTML5 mp4 h264/acc capable browser.</p>
     <p>Requires HTML5 Ogg Theora/Vorbis capable browser.</p>
@@ -19,9 +20,6 @@
 	id="video_source_src"
        src= "http://nodejs-db.cloudapp.net/media/sample.mp4_320pm.mp4"
        type="video/mp4">
-<div id='div-video-control'>
-    <button id="play" onclick="vidplay()">&gt;</button>
-</div>
 <script>
 
     src_id_video = 'http://nodejs-db.cloudapp.net/media/' + videoid_i + '_';
@@ -61,10 +59,15 @@
     //fonction switch source by resolution
     function SwitchSource() {
 	    whereYouAtCounter = whereYouAtCounter + whereYouAt;
-	    var video_obj_src = src_id_video + video_res + ".mp4?start=" + whereYouAtCounter;
+//	    var video_obj_src = src_id_video + video_res + ".mp4?start=" + whereYouAtCounter;
+	    var video_obj_src = src_id_video + video_res + ".mp4";
 	    $("#video").attr("src", video_obj_src);
-	    if ( whereYouAtCounter != 0 ) { $video_obj.play(); }
-	//    $('#div-video-file').html("resolution: " + src_id_video +  video_res  + ".mp4?start=" + whereYouAtCounter);
+	    if ( whereYouAtCounter != 0 ) { 
+//		$video_obj.currentTime = "50";
+		video_obj.currentTime = whereYouAt;
+		$video_obj.play();
+	    }
+//	    $('#div-video-file').html("resolution: " + src_id_video +  video_res  + ".mp4?start=" + whereYouAtCounter);
 //	    console.log("resolution: " + src_id_video +  video_res  + ".mp4?start=" + whereYouAtCounter);
     }
 </script>
@@ -72,22 +75,11 @@
 <script src="/js/videotool.js"> </script>
 
 <script>
-    var videoobjvisibleinterval = setInterval(function() {
+//    var videoobjvisibleinterval = setInterval(function() {
 
-	if (isScrolledIntoView(video_obj) && vis()) { video_obj.play(); } else { video_obj.pause(); };
+//	if (isScrolledIntoView(video_obj) && vis()) { video_obj.play(); } else { video_obj.pause(); };
 
-    }, 1000);
-
-function vidplay() {
-   var button = document.getElementById("play");
-   if (video_obj.paused) {
-      video_obj.play();
-      button.textContent = "||";
-   } else {
-      video_obj.pause();
-      button.textContent = ">";
-   }
-}
+//    }, 1000);
 
 </script>
 

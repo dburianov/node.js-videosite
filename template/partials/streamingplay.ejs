@@ -1,7 +1,11 @@
 <script>
-    var videosrc = "http://nodejs-db.cloudapp.net/media/sample.mp4_720pm.mp4";
+//    var videosrc = "http://nodejs-db.cloudapp.net/media/sample.mp4_720pm.mp4";
 </script>
 
+--    <source
+--	id="video_source_src"
+--       src= "http://nodejs-db.cloudapp.net/media/sample.mp4_320pm.mp4"
+--       type="video/mp4">
 
 
 <video id="video"
@@ -11,10 +15,6 @@
         controls 
 	autoplay>
 </video>
-    <source
-	id="video_source_src"
-       src= "http://nodejs-db.cloudapp.net/media/sample.mp4_320pm.mp4"
-       type="video/mp4">
 
 <script>
     videojs.options.flash.swf = 'vendor/videojs/node_modules/video.js/dist/video-js/video-js.swf';

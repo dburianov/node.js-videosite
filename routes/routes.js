@@ -46,13 +46,20 @@ module.exports = function(app, passport) {
                 .update(str, 'utf8')
                 .digest(encoding || 'hex')
 	};
-        console.log(checksum( key + rnd ) + ' ' + rnd);
+	var streaming_key_rend = checksum( key + rnd );
+	var streaming_key = streaming_key_rend.substring(0,5);
+//        console.log(checksum( key + rnd ) + ' ' + rnd);
+        console.log(streaming_key + ' ' + rnd);
 	// res.render(checksum( key + rnd ) + ' ' + rnd);
 
-        redis.setex( rnd, 100, checksum( key + rnd ));
+//        redis.setex( rnd, 1000, checksum( key + rnd ));
+        redis.setex( rnd, 1000, streaming_key);
 
+//        var drinks = [
+//            { name: checksum( key + rnd), drunkness: rnd, server: 'rtmp://nginx-rtmp.cloudapp.net', strapp: 'hls' }
+//        ];
         var drinks = [
-            { name: checksum( key + rnd), drunkness: rnd, server: 'rtmp://nginx-rtmp.cloudapp.net', strapp: 'hls' }
+            { name: streaming_key, drunkness: rnd, server: 'rtmp://nginx-rtmp.cloudapp.net', strapp: 'instream' }
         ];
         var tagline = "Any code of your own that you haven't looked at for six or more months might as well have been written by someone else.";
 
